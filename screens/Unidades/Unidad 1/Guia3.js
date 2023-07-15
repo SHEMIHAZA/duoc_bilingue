@@ -1,34 +1,73 @@
-import { StyleSheet, Text, View, Button, ScrollView, TouchableOpacity, Modal } from 'react-native';
+import React, { useState } from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+  Modal,
+  ImageBackground
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useLayoutEffect } from 'react';
 import { Ionicons } from '@expo/vector-icons';
-import React, { useState } from 'react';
 
-const Exercise = ({ question, options, answer, handleOptionPress, selectedOption, showResult }) => {
+const Exercise = ({
+  question,
+  options,
+  answer,
+  handleOptionPress,
+  selectedOption,
+  showResult,
+}) => {
   const isCorrect = selectedOption === answer;
+  const incorrectMessage = 'The correct answer is "' + answer + '".';
+  const correctMessage = 'Correct!';
+  const getOptionButtonStyle = (option) => {
+    if (showResult) {
+      if (option === answer) {
+        return styles.correctOptionButton;
+      } else if (option === selectedOption) {
+        return styles.incorrectOptionButton;
+      }
+    }
+    if (option === selectedOption) {
+      return styles.selectedOptionButton;
+    }
+    return styles.optionButton;
+  };
+
   return (
     <View style={styles.exerciseContainer}>
+      
       <Text style={styles.questionText}>{question}</Text>
-      {options.map((option, index) => (
-        <TouchableOpacity
+      {options.map((option, index) => {
+        const isSelected = selectedOption === option;
+        const isCurrentAnswer = answer === option;
+        const isChosenAnswer = showResult && isSelected;
+        const isCorrectAnswer = isChosenAnswer && isCorrect;
+
+        return (
+          <TouchableOpacity
           key={index}
+          style={getOptionButtonStyle(option)}
           onPress={() => handleOptionPress(option)}
-          style={[
-            styles.optionButton,
-            selectedOption === option && styles.selectedOptionButton,
-            showResult && selectedOption === option && isCorrect && styles.correctOptionButton,
-            showResult && selectedOption === option && !isCorrect && styles.incorrectOptionButton,
-          ]}
+          disabled={showResult}
         >
           <Text>{option}</Text>
-        </TouchableOpacity>
-      ))}
-
-      {showResult && (
-         <Text style={isCorrect ? styles.correctAnswerText : styles.incorrectAnswerText}>
-         {isCorrect ? 'Correct!' : 'Incorrect!'} The correct answer is {answer}.
-       </Text>
-      )}
+            {isChosenAnswer && (
+              <Text
+                style={[
+                  styles.answerText,
+                  isCorrectAnswer ? styles.correctAnswerText : styles.incorrectAnswerText,
+                ]}
+              >
+                {isCorrectAnswer ? correctMessage : incorrectMessage}
+              </Text>
+            )}
+          </TouchableOpacity>
+        );
+      })}
     </View>
   );
 };
@@ -40,12 +79,11 @@ const Guia3 = () => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleOptionPress = (option, index) => {
-    const updatedSelectedOptions = [...selectedOptions];
-    updatedSelectedOptions[index] = option;
-    setSelectedOptions(updatedSelectedOptions);
-
-    const exercise = exercises[index];
-    exercise.isCorrect = option === exercise.answer;
+    if (!showResult) {
+      const updatedSelectedOptions = [...selectedOptions];
+      updatedSelectedOptions[index] = option;
+      setSelectedOptions(updatedSelectedOptions);
+    }
   };
 
   const checkAnswer = () => {
@@ -81,194 +119,195 @@ const Guia3 = () => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: true,
-      title: "Simple Past of Be: was/were",
-      justifyContent: "center",
+      title: 'Simple Past of Be: was/were',
+      justifyContent: 'center',
       headerTitleStyle: {
         fontSize: 20,
-        fontWeight: "bold",
-        color: "white",
+        fontWeight: 'bold',
+        color: 'white',
       },
       headerStyle: {
-        backgroundColor: "#C2185B",
+        backgroundColor: '#6f6f5d',
         height: 110,
-        borderBottomColor: "transparent",
-        shadowColor: "transparent",
+        borderBottomColor: '#6f6f5d',
       },
-      headerRight: () => (
-        <Ionicons
-          name="notifications-outline"
-          size={24}
-          color="white"
-          style={{ marginRight: 12 }}
-        />
-      ),
+      headerTintColor: '#fff',
+      headerTitleAlign: 'center',
     });
-  }, []);
-
-  const exercises = [
-    {
-      question: "1. Daniel’s behaviour is bad, but Brian’s is____________",
-      options: ["a) much worst", "b) more worse", "c) much worse", "d) worst"],
-      answer: "c) much worse",
-    },
-
-    {
-      question: "2. They___________a photo when I was on the podium",
-      options: ["a) were taken", "b) had taken", "c) are taking", "d) took"],
-      answer: "d) took",
-    },
-
-    {
-      question: "3. What are you going to____________in the interview?",
-      options: ["a) tell", "b) told", "c) say", "d) saying"],
-      answer: "c) say",
-    },
-
-    {
-      question: "4. What did your mother___________you when she found out?",
-      options: ["a) tell", "b) say", "c) said", "d) told"],
-      answer: "a) tell",
-    },
-
-  
-    // ... Agrega más objetos de ejercicio aquí ...
-  ];
+  }, [navigation]);
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View style={{ backgroundColor: "#F8BBD0" }}>
-        <Text style={{
-          height: 65,
-          marginLeft: 20,
-          marginRight: 20,
-          marginTop: 20,
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-around",
-        }}>
-          Remember this: we often add -er or -or to a verb, e.g., writer, actor. We often add -ian, -ist or man / woman to a noun, e.g., musician.
-        </Text>
-      </View>
 
-      {exercises.map((exercise, index) => (
-        <View key={index} style={{ margin: 15 }}>
-          <Exercise
-            question={exercise.question}
-            options={exercise.options}
-            answer={exercise.answer}
-            handleOptionPress={(option) => handleOptionPress(option, index)}
-            selectedOption={selectedOptions[index]}
-            showResult={showResult}
-          />
+    <View style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.exercisesContainer}>
+          {exercises.map((exercise, index) => (
+            <Exercise
+              key={index}
+              question={exercise.question}
+              options={exercise.options}
+              answer={exercise.answer}
+              handleOptionPress={(option) =>
+                handleOptionPress(option, index)
+              }
+              selectedOption={selectedOptions[index]}
+              showResult={showResult}
+            />
+          ))}
         </View>
-      ))}
-
-      <View>
+      </ScrollView>
+      <View style={styles.buttonContainer}>
         <TouchableOpacity
-          onPress={(showQuizResults, checkAnswer)}
-          style={{
-            borderRadius: 20,
-            padding: 15,
-            marginBottom: 20,
-            marginLeft: 12,
-            marginRight: 12,
-            backgroundColor: "#FF4081",
-
-          }}
+          style={styles.checkButton}
+          onPress={checkAnswer}
+          disabled={showResult}
         >
-          <Text style={{ textAlign: "center" }}>
-            Check your Answers
-          </Text>
+          <Text style={styles.checkButtonText}>Check your answers</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.resetButton}
+          onPress={resetQuiz}
+          disabled={!showResult}
+        >
+          <Text style={styles.resetButtonText}>Reset</Text>
         </TouchableOpacity>
       </View>
-
       <Modal
-        animationType="slide"
-        transparent={true}
         visible={modalVisible}
+        transparent={true}
+        animationType="fade"
         onRequestClose={() => setModalVisible(false)}
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Quiz Results</Text>
             <Text style={styles.modalText}>
-              Your quiz results:
-            </Text>
-            <Text style={styles.correctResultText}>
               Correct Answers: {countCorrectAnswers()}
             </Text>
-            <Text style={styles.incorrectResultText}>
+            <Text style={styles.modalText}>
               Incorrect Answers: {countIncorrectAnswers()}
             </Text>
             <TouchableOpacity
-              onPress={resetQuiz}
-              style={styles.modalButton}
+              style={styles.closeButton}
+              onPress={() => setModalVisible(false)}
             >
-              <Text style={styles.modalButtonText}>
-                Try Again
-              </Text>
+              <Ionicons name="close-outline" size={24} color="black" />
             </TouchableOpacity>
           </View>
         </View>
       </Modal>
-    </ScrollView>
+    </View>
   );
 };
 
-export default Guia3;
+const exercises = [
+  // Ejercicios...
+  {
+    question: '1. Daniel’s behaviour is bad, but Brian’s is____________',
+    options: ['a) much worst', 'b) more worse', 'c) much worse', 'd) worst'],
+    answer: 'c) much worse',
+  },
+  {
+    question: '1. Daniel’s behaviour is bad, but Brian’s is____________',
+    options: ['a) much worst', 'b) more worse', 'c) much worse', 'd) worst'],
+    answer: 'c) much worse',
+  },
+  {
+    question: '1. Daniel’s behaviour is bad, but Brian’s is____________',
+    options: ['a) much worst', 'b) more worse', 'c) much worse', 'd) worst'],
+    answer: 'c) much worse',
+  },
+  {
+    question: '1. Daniel’s behaviour is bad, but Brian’s is____________',
+    options: ['a) much worst', 'b) more worse', 'c) much worse', 'd) worst'],
+    answer: 'c) much worse',
+  },
+];
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
+    flex: 1,
+    paddingHorizontal: 20,
+    paddingTop: 20,
     backgroundColor: 'white',
+  },
+  exercisesContainer: {
+    marginBottom: 20,
   },
   exerciseContainer: {
     marginBottom: 20,
-    marginTop: 30,
   },
   questionText: {
-    fontSize: 17,
-    fontWeight: 'bold',
     marginBottom: 10,
-    color: "black"
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   optionButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: 20,
-    borderColor: "#FF4081",
-    borderWidth: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     paddingVertical: 10,
-    borderRadius: 10,
-    marginLeft: 12,
-    marginRight: 12,
-    marginTop: 15,
-    height: 50,
-  },
-  checkAnswerButton: {
-    marginTop: 20,
-    borderColor: "#FF4081",
-    color: "black",
-  },
-  checkAnswerButtonText: {
-    color: "black",
-  },
-  correctAnswerText: {
-    color: 'green',
-    marginTop: 10,
-    margin: 25,
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  incorrectAnswerText: {
-    color: 'red',
-    marginTop: 10,
-    margin: 25,
-    fontSize: 16,
-    fontWeight: 'bold',
+    paddingHorizontal: 15,
+    borderWidth: 1,
+    borderRadius: 8,
+    marginBottom: 10,
   },
   selectedOptionButton: {
-    backgroundColor: "#FF1151",
-    opacity: 0.6,
+    borderColor: '#6f6f5d',
+    backgroundColor: '#DCDCD1',
+    borderWidth: 2,
+    opacity: 0.9,
+    marginBottom:10,
+    borderRadius: 8,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+  },
+  correctOptionButton: {
+    borderColor: '#4CAF50',
+  },
+  incorrectOptionButton: {
+    borderColor: '#F44336',
+  },
+  answerText: {
+    marginTop: 5,
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  correctAnswerText: {
+    color: '#4CAF50',
+  },
+  incorrectAnswerText: {
+    color: '#F44336',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  checkButton: {
+    flex: 1,
+    backgroundColor: '#2196F3',
+    paddingVertical: 10,
+    alignItems: 'center',
+    borderRadius: 8,
+    marginRight: 10,
+  },
+  checkButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  resetButton: {
+    flex: 1,
+    backgroundColor: '#F44336',
+    paddingVertical: 10,
+    alignItems: 'center',
+    borderRadius: 8,
+    marginLeft: 10,
+  },
+  resetButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
   },
   modalContainer: {
     flex: 1,
@@ -277,49 +316,40 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalContent: {
-    backgroundColor: '#fff',
-    borderRadius: 20,
+    backgroundColor: 'white',
     padding: 20,
+    borderRadius: 8,
     alignItems: 'center',
-    justifyContent: 'center',
+    elevation: 5,
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
   },
   modalText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 15,
-  },
-  correctResultText: {
-    color: "#00ffc1",
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  incorrectResultText: {
-    color: 'red',
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  modalButton: {
-    borderWidth: 1,
-    borderColor: 'black',
-    borderRadius: 10,
-    padding: 10,
-    backgroundColor: 'green',
-    marginBottom: 10,
-  },
-  modalButtonText: {
-    color: 'white',
     fontSize: 16,
-    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  closeButton: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
   },
   correctOptionButton: {
-    backgroundColor: "#00ffc1",
-    opacity: 0.6,
+    borderWidth: 2,
+    borderColor: '#4CAF50',
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 10,
   },
   incorrectOptionButton: {
-    backgroundColor: 'red',
-    opacity: 0.6,
+    borderWidth: 2,
+    borderColor: '#F44336',
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 10,
   },
-  
 });
+
+export default Guia3;

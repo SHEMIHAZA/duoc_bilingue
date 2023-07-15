@@ -1,49 +1,89 @@
-import { StyleSheet, Text, View, Button, ScrollView, TouchableOpacity, Modal } from 'react-native';
+import React, { useState } from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+  Modal,
+  ImageBackground
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useLayoutEffect } from 'react';
 import { Ionicons } from '@expo/vector-icons';
-import React, { useState } from 'react';
 
-const Exercise = ({ question, options, answer, handleOptionPress, selectedOption, showResult }) => {
-  const [exerciseSelectedOption, setExerciseSelectedOption] = useState(null);
-
-  const handleExerciseOptionPress = (option) => {
-    setExerciseSelectedOption(option);
-    handleOptionPress(option);
+const Exercise = ({
+  question,
+  options,
+  answer,
+  handleOptionPress,
+  selectedOption,
+  showResult,
+}) => {
+  const isCorrect = selectedOption === answer;
+  const incorrectMessage = 'The correct answer is "' + answer + '".';
+  const correctMessage = 'Correct!';
+  const getOptionButtonStyle = (option) => {
+    if (showResult) {
+      if (option === answer) {
+        return styles.correctOptionButton;
+      } else if (option === selectedOption) {
+        return styles.incorrectOptionButton;
+      }
+    }
+    if (option === selectedOption) {
+      return styles.selectedOptionButton;
+    }
+    return styles.optionButton;
   };
 
   return (
     <View style={styles.exerciseContainer}>
+      
       <Text style={styles.questionText}>{question}</Text>
-      {options.map((option, index) => (
-        <TouchableOpacity
+      {options.map((option, index) => {
+        const isSelected = selectedOption === option;
+        const isCurrentAnswer = answer === option;
+        const isChosenAnswer = showResult && isSelected;
+        const isCorrectAnswer = isChosenAnswer && isCorrect;
+
+        return (
+          <TouchableOpacity
           key={index}
-          onPress={() => handleExerciseOptionPress(option)}
-          style={[
-            styles.optionButton,
-            exerciseSelectedOption === option && styles.selectedOptionButton,
-          ]}
+          style={getOptionButtonStyle(option)}
+          onPress={() => handleOptionPress(option)}
+          disabled={showResult}
         >
           <Text>{option}</Text>
-        </TouchableOpacity>
-      ))}
-
-      {showResult && (
-        <Text style={exerciseSelectedOption === answer ? styles.correctAnswerText : styles.incorrectAnswerText}>
-          {exerciseSelectedOption === answer ? 'Correct!' : 'Incorrect!'} The correct answer is {answer}.
-        </Text>
-      )}
+            {isChosenAnswer && (
+              <Text
+                style={[
+                  styles.answerText,
+                  isCorrectAnswer ? styles.correctAnswerText : styles.incorrectAnswerText,
+                ]}
+              >
+                {isCorrectAnswer ? correctMessage : incorrectMessage}
+              </Text>
+            )}
+          </TouchableOpacity>
+        );
+      })}
     </View>
   );
 };
 
 const Guia2 = () => {
   const navigation = useNavigation();
+  const [selectedOptions, setSelectedOptions] = useState([]);
   const [showResult, setShowResult] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
 
-  const handleOptionPress = (option) => {
-    // Handle the option press here
+  const handleOptionPress = (option, index) => {
+    if (!showResult) {
+      const updatedSelectedOptions = [...selectedOptions];
+      updatedSelectedOptions[index] = option;
+      setSelectedOptions(updatedSelectedOptions);
+    }
   };
 
   const checkAnswer = () => {
@@ -51,6 +91,7 @@ const Guia2 = () => {
   };
 
   const resetQuiz = () => {
+    setSelectedOptions([]);
     setShowResult(false);
     setModalVisible(false);
   };
@@ -59,177 +100,214 @@ const Guia2 = () => {
     setModalVisible(true);
   };
 
+  const countCorrectAnswers = () => {
+    let count = 0;
+    selectedOptions.forEach((option, index) => {
+      if (option === exercises[index].answer) {
+        count++;
+      }
+    });
+    return count;
+  };
+
+  const countIncorrectAnswers = () => {
+    const totalQuestions = exercises.length;
+    const correctAnswers = countCorrectAnswers();
+    return totalQuestions - correctAnswers;
+  };
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: true,
-      title: "Simple Past of Be: was/were",
-      justifyContent: "center",
+      title: 'Simple Past of Be: was/were',
+      justifyContent: 'center',
       headerTitleStyle: {
         fontSize: 20,
-        fontWeight: "bold",
-        color: "white",
+        fontWeight: 'bold',
+        color: 'white',
       },
       headerStyle: {
-        backgroundColor: "#C2185B",
+        backgroundColor: '#6f6f5d',
         height: 110,
-        borderBottomColor: "transparent",
-        shadowColor: "transparent",
+        borderBottomColor: '#6f6f5d',
       },
-      headerRight: () => (
-        <Ionicons
-          name="notifications-outline"
-          size={24}
-          color="white"
-          style={{ marginRight: 12 }}
-        />
-      ),
+      headerTintColor: '#fff',
+      headerTitleAlign: 'center',
     });
-  }, []);
+  }, [navigation]);
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View style={{ backgroundColor: "#F8BBD0" }}>
-        <Text style={{
-          height: 65,
-          marginLeft: 20,
-          marginRight: 20,
-          marginTop: 20,
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-around",
-        }}>
-          Remember this: we often add -er or -or to a verb, e.g., writer, actor. We often add -ian, -ist or man / woman to a noun, e.g., musician.
-        </Text>
-      </View>
 
-      {/* EJERCICIOS DE SELECCION */}
-      <View style={{ margin: 15 }}>
-        <Exercise
-          question="Which verb tense is used to talk about future actions?"
-          options={["Future Simple", "Present Continuous", "Past Simple"]}
-          answer="Future Simple"
-          handleOptionPress={handleOptionPress}
-          showResult={showResult}
-        />
-      </View>
-
-      <View style={{ margin: 15, borderBottomWidth: 1, borderBottomColor: 'black' }} />
-
-      <View style={{ margin: 15 }}>
-        <Exercise
-          question="Which verb tense is used to talk about future actions?"
-          options={["Future Simple", "Present Continuous", "Past Simple"]}
-          answer="Future Simple"
-          handleOptionPress={handleOptionPress}
-          showResult={showResult}
-        />
-      </View>
-
-
-      {/* ... Repite las instancias de Exercise para el resto de preguntas ... */}
-
-      <View>
+    <View style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.exercisesContainer}>
+          {exercises.map((exercise, index) => (
+            <Exercise
+              key={index}
+              question={exercise.question}
+              options={exercise.options}
+              answer={exercise.answer}
+              handleOptionPress={(option) =>
+                handleOptionPress(option, index)
+              }
+              selectedOption={selectedOptions[index]}
+              showResult={showResult}
+            />
+          ))}
+        </View>
+      </ScrollView>
+      <View style={styles.buttonContainer}>
         <TouchableOpacity
-          onPress={showQuizResults}
-          style={{
-            borderWidth: 1,
-            borderRadius: 20,
-            padding: 15,
-            marginBottom: 20,
-            marginLeft: 12,
-            marginRight: 12,
-            backgroundColor: "#009BCC",
-          }}
+          style={styles.checkButton}
+          onPress={checkAnswer}
+          disabled={showResult}
         >
-          <Text style={{ textAlign: "center" }}>
-            Check your Answers
-          </Text>
+          <Text style={styles.checkButtonText}>Check your answers</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.resetButton}
+          onPress={resetQuiz}
+          disabled={!showResult}
+        >
+          <Text style={styles.resetButtonText}>Reset</Text>
         </TouchableOpacity>
       </View>
-
-      {/* Modal para mostrar los resultados */}
       <Modal
-        animationType="slide"
-        transparent={true}
         visible={modalVisible}
+        transparent={true}
+        animationType="fade"
         onRequestClose={() => setModalVisible(false)}
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Quiz Results</Text>
             <Text style={styles.modalText}>
-              Your quiz results:
+              Correct Answers: {countCorrectAnswers()}
             </Text>
-            {/* ... Mostrar los resultados del quiz aquí ... */}
+            <Text style={styles.modalText}>
+              Incorrect Answers: {countIncorrectAnswers()}
+            </Text>
             <TouchableOpacity
-              onPress={resetQuiz}
-              style={styles.modalButton}
+              style={styles.closeButton}
+              onPress={() => setModalVisible(false)}
             >
-              <Text style={styles.modalButtonText}>
-                Try Again
-              </Text>
+              <Ionicons name="close-outline" size={24} color="black" />
             </TouchableOpacity>
           </View>
         </View>
       </Modal>
-    </ScrollView>
+    </View>
   );
 };
 
-export default Guia2;
+const exercises = [
+  // Ejercicios...
+  {
+    question: '1. Daniel’s behaviour is bad, but Brian’s is____________',
+    options: ['a) much worst', 'b) more worse', 'c) much worse', 'd) worst'],
+    answer: 'c) much worse',
+  },
+  {
+    question: '1. Daniel’s behaviour is bad, but Brian’s is____________',
+    options: ['a) much worst', 'b) more worse', 'c) much worse', 'd) worst'],
+    answer: 'c) much worse',
+  },
+  {
+    question: '1. Daniel’s behaviour is bad, but Brian’s is____________',
+    options: ['a) much worst', 'b) more worse', 'c) much worse', 'd) worst'],
+    answer: 'c) much worse',
+  },
+  {
+    question: '1. Daniel’s behaviour is bad, but Brian’s is____________',
+    options: ['a) much worst', 'b) more worse', 'c) much worse', 'd) worst'],
+    answer: 'c) much worse',
+  },
+];
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
+    flex: 1,
+    paddingHorizontal: 20,
+    paddingTop: 20,
     backgroundColor: 'white',
+  },
+  exercisesContainer: {
+    marginBottom: 20,
   },
   exerciseContainer: {
     marginBottom: 20,
-    marginTop: 30,
   },
   questionText: {
-    fontSize: 17,
-    fontWeight: 'bold',
     marginBottom: 10,
-    color: "black"
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   optionButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: 20,
-    borderColor: "#FF4081",
-    borderWidth: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     paddingVertical: 10,
-    borderRadius: 10,
-    marginLeft: 12,
-    marginRight: 12,
-    marginTop: 15,
-    height: 50,
-  },
-  checkAnswerButton: {
-    marginTop: 20,
-    borderColor: "#FF4081",
-    color: "black",
-  },
-  checkAnswerButtonText: {
-    color: "black",
-  },
-  correctAnswerText: {
-    color: 'green',
-    marginTop: 10,
-    margin: 25,
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  incorrectAnswerText: {
-    color: 'red',
-    marginTop: 10,
-    margin: 25,
-    fontSize: 16,
-    fontWeight: 'bold',
+    paddingHorizontal: 15,
+    borderWidth: 1,
+    borderRadius: 8,
+    marginBottom: 10,
   },
   selectedOptionButton: {
-    backgroundColor: "#FF1151",
-    opacity: 0.6,
+    borderColor: '#6f6f5d',
+    backgroundColor: '#DCDCD1',
+    borderWidth: 2,
+    opacity: 0.9,
+    marginBottom:10,
+    borderRadius: 8,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+  },
+  correctOptionButton: {
+    borderColor: '#4CAF50',
+  },
+  incorrectOptionButton: {
+    borderColor: '#F44336',
+  },
+  answerText: {
+    marginTop: 5,
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  correctAnswerText: {
+    color: '#4CAF50',
+  },
+  incorrectAnswerText: {
+    color: '#F44336',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  checkButton: {
+    flex: 1,
+    backgroundColor: '#2196F3',
+    paddingVertical: 10,
+    alignItems: 'center',
+    borderRadius: 8,
+    marginRight: 10,
+  },
+  checkButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  resetButton: {
+    flex: 1,
+    backgroundColor: '#F44336',
+    paddingVertical: 10,
+    alignItems: 'center',
+    borderRadius: 8,
+    marginLeft: 10,
+  },
+  resetButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
   },
   modalContainer: {
     flex: 1,
@@ -240,25 +318,38 @@ const styles = StyleSheet.create({
   modalContent: {
     backgroundColor: 'white',
     padding: 20,
-    borderRadius: 10,
+    borderRadius: 8,
     alignItems: 'center',
+    elevation: 5,
   },
-  modalText: {
+  modalTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: 10,
   },
-  modalButton: {
-    backgroundColor: '#009BCC',
-    padding: 10,
-    borderRadius: 10,
-    width: '60%',
-    alignItems: 'center',
-    marginTop: 20,
-  },
-  modalButtonText: {
-    color: 'white',
+  modalText: {
     fontSize: 16,
-    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  closeButton: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+  },
+  correctOptionButton: {
+    borderWidth: 2,
+    borderColor: '#4CAF50',
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 10,
+  },
+  incorrectOptionButton: {
+    borderWidth: 2,
+    borderColor: '#F44336',
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 10,
   },
 });
+
+export default Guia2;

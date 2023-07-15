@@ -86,7 +86,7 @@ const ProfileScreen = () => {
         color: "white",
       },
       headerStyle: {
-        backgroundColor: "#C2185B",
+        backgroundColor: "#6f6f5d",
         height: 110,
         borderBottomColor: "transparent",
         shadowColor: "transparent",
@@ -105,7 +105,7 @@ const ProfileScreen = () => {
   return (
     
     <>
-    <ImageBackground source={require("../screens/assets/images/english.jpg")}
+    <ImageBackground source={require("../screens/assets/images/oatmeal-11.jpg")}
                                     style={{ flex: 1, resizeMode:"cover"}}>
       {/* <Header /> */}
       
@@ -168,17 +168,17 @@ const styles = StyleSheet.create({
     borderRadius: 80,
   },
   input: {
-    width: '100%',
+    width: '80%',
     height: 40,
     borderWidth: 1,
     borderColor: 'gray',
     backgroundColor:'white',
-    borderRadius:3,
+    borderRadius:6,
     marginBottom: 10,
     paddingHorizontal: 10,
   },
   button: {
-    backgroundColor: '#C2185B',
+    backgroundColor: '#273427',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,

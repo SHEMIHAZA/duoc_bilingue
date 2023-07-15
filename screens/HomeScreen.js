@@ -50,7 +50,7 @@ const HomeScreen = () => {
         color: "white",
       },
       headerStyle: {
-        backgroundColor: "#C2185B",
+        backgroundColor: "#6f6f5d",
         height: 110,
         borderBottomColor: "transparent",
         shadowColor: "transparent",
@@ -72,7 +72,7 @@ const HomeScreen = () => {
   return (
     <>
       <ImageBackground
-        source={require("../screens/assets/images/english.jpg")}
+        source={require("../screens/assets/images/oatmeal-13.jpg")}
         style={{ flex: 1, resizeMode: "cover" }}
       >
         <View style={{
@@ -81,10 +81,10 @@ const HomeScreen = () => {
           alignItems: "flex-start",
           justifyContent: "space-around"
         }}>
-          <Text style={{ color: 'white', fontSize: 20, fontFamily: "Poppins", marginTop: 15 }}>Today: {currentDate}</Text>
+          <Text style={{ color: '#6f6f5d', fontSize: 20, fontFamily: "Poppins", marginTop: 15 }}>Today: {currentDate}</Text>
         </View>
         <View style={{ alignItems: "center", marginTop: 10 }}>
-          <Text style={{ color: "white", fontSize: 20, fontWeight: "bold", borderRadius:10, padding:5, marginTop:0 }}>
+          <Text style={{ color: "#6f6f5d", fontSize: 20, fontWeight: "bold", borderRadius:10, padding:5, marginTop:0 }}>
             ¡Welcome, {username}!
           </Text>
         </View>
@@ -97,14 +97,15 @@ const HomeScreen = () => {
                   width: 180,
                   height: 150,
                   marginTop: 10,
-                  backgroundColor: "#34495E",
+                  backgroundColor: "#f7f3f2",
                   borderRadius: 15,
                   padding: 20,
-                  marginHorizontal: 8
+                  marginHorizontal: 8,
+                  borderWidth:1,
                 }}
                 onPress={() => navigation.navigate("Materia1")}
               >
-                <Text style={{ color: "white", fontSize: 20, fontWeight: "bold", marginVertical: 7, justifyContent: "space-around" }}>Access study material here</Text>
+                <Text style={{ color: "#272525", fontSize: 20, fontWeight: "bold", marginVertical: 7, justifyContent: "space-around" }}>Access study material here</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -112,14 +113,14 @@ const HomeScreen = () => {
                   width: 180,
                   height: 150,
                   marginTop: 10,
-                  backgroundColor: "#34495E",
+                  backgroundColor: "#f7f3f2",
                   borderRadius: 15,
                   padding: 20,
-
-                  marginRight: 8
+                  marginRight: 8,
+                  borderWidth:1,
                 }}
               >
-                <Text style={{ color: "white", fontSize: 20, fontWeight: "bold", marginVertical: 7, justifyContent: "space-around" }}>Analyze your progress</Text>
+                <Text style={{ color: "#272525", fontSize: 20, fontWeight: "bold", marginVertical: 7, justifyContent: "space-around" }}>Analyze your progress</Text>
               </TouchableOpacity>
             </View>
 
@@ -129,13 +130,14 @@ const HomeScreen = () => {
                   width: 180,
                   height: 150,
                   marginTop: 10,
-                  backgroundColor: "#34495E",
+                  backgroundColor: "#f7f3f2",
                   borderRadius: 15,
                   padding: 20,
-                  marginHorizontal: 8
+                  marginHorizontal: 8,
+                  borderWidth:1,
                 }}
               >
-                <Text style={{ color: "white", fontSize: 20, fontWeight: "bold", marginVertical: 7, justifyContent: "space-around" }}>More information</Text>
+                <Text style={{ color: "#272525", fontSize: 20, fontWeight: "bold", marginVertical: 7, justifyContent: "space-around" }}>More information</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -143,13 +145,14 @@ const HomeScreen = () => {
                   width: 180,
                   height: 150,
                   marginTop: 10,
-                  backgroundColor: "#34495E",
+                  backgroundColor: "#f7f3f2",
                   borderRadius: 15,
                   padding: 20,
-                  marginRight: 8
+                  marginRight: 8,
+                  borderWidth:1,
                 }}
               >
-                <Text style={{ color: "white", fontSize: 20, fontWeight: "bold", marginVertical: 7, justifyContent: "space-around" }}>Access help pages</Text>
+                <Text style={{ color: "#272525", fontSize: 20, fontWeight: "bold", marginVertical: 7, justifyContent: "space-around" }}>Access help pages</Text>
               </TouchableOpacity>
             </View>
           </ScrollView>

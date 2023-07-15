@@ -6,11 +6,11 @@ import {
   ScrollView,
   TouchableOpacity,
   Modal,
+  ImageBackground
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useLayoutEffect } from 'react';
 import { Ionicons } from '@expo/vector-icons';
-import { LinearGradient } from 'expo-linear-gradient';
 
 const Exercise = ({
   question,
@@ -39,6 +39,7 @@ const Exercise = ({
 
   return (
     <View style={styles.exerciseContainer}>
+      
       <Text style={styles.questionText}>{question}</Text>
       {options.map((option, index) => {
         const isSelected = selectedOption === option;
@@ -126,10 +127,9 @@ const Guia1 = () => {
         color: 'white',
       },
       headerStyle: {
-        backgroundColor: '#C2185B',
+        backgroundColor: '#6f6f5d',
         height: 110,
-        borderBottomColor: '#C2185B',
-        borderBottomWidth: 3,
+        borderBottomColor: '#6f6f5d',
       },
       headerTintColor: '#fff',
       headerTitleAlign: 'center',
@@ -137,6 +137,7 @@ const Guia1 = () => {
   }, [navigation]);
 
   return (
+
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.exercisesContainer}>
@@ -252,7 +253,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   selectedOptionButton: {
-    borderColor: '#C2185B',
+    borderColor: '#6f6f5d',
     backgroundColor: '#DCDCD1',
     borderWidth: 2,
     opacity: 0.9,

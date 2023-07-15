@@ -28,10 +28,11 @@ const StackNavigator = () => {
   function BottomTabs() {
     return (
       <Tab.Navigator
-        tabBarStyle={{
-          style: {
-            backgroundColor: "#DCf8D1", // Color de fondo de la barra de navegación
+        screenOptions={{
+          tabBarStyle: {
+            backgroundColor: "#272525", // Color de fondo de la barra de abajo
           },
+          tabBarActiveTintColor: "#f7f3f2", // Color del texto seleccionado
         }}
       >
         <Tab.Screen
@@ -41,9 +42,9 @@ const StackNavigator = () => {
             tabBarLabel: "Home",
             tabBarIcon: ({ focused }) =>
               focused ? (
-                <Ionicons name="ios-home-sharp" size={30} color="#FFA000" />
+                <Ionicons name="ios-home-sharp" size={30} color="#f7f3f2" />
               ) : (
-                <Ionicons name="ios-home-outline" size={25} color="#009BCC" />
+                <Ionicons name="ios-home-outline" size={25} color="#6f6f5d" />
               ),
           }}
         />
@@ -69,9 +70,9 @@ const StackNavigator = () => {
             tabBarLabel: "Exercises",
             tabBarIcon: ({ focused }) =>
               focused ? (
-                <Ionicons name="ios-pencil" size={30} color="#FFA000" />
+                <Ionicons name="ios-pencil" size={30} color="#f7f3f2" />
               ) : (
-                <Ionicons name="ios-pencil-outline" size={25} color="#009BCC" />
+                <Ionicons name="ios-pencil-outline" size={25} color="#6f6f5d" />
               ),
           }}
         />
@@ -83,9 +84,9 @@ const StackNavigator = () => {
             tabBarLabel: "Profile",
             tabBarIcon: ({ focused }) =>
               focused ? (
-                <Ionicons name="person" size={30} color="#FFA000" />
+                <Ionicons name="person" size={30} color="#f7f3f2" />
               ) : (
-                <Ionicons name="person-outline" size={25} color="#009BCC" />
+                <Ionicons name="person-outline" size={25} color="#6f6f5d" />
               ),
           }}
         />

@@ -20,7 +20,7 @@ const NotificacionesScreen = () => {
         color: "white",
       },
       headerStyle: {
-        backgroundColor: "#C2185B",
+        backgroundColor: "#6f6f5d",
         height: 110,
         borderBottomColor: "transparent",
         shadowColor: "transparent",
@@ -37,7 +37,7 @@ const NotificacionesScreen = () => {
   }, []);
   return (
     <>
-    <ImageBackground source={require("../screens/assets/images/english.jpg")}
+    <ImageBackground source={require("../screens/assets/images/oatmeal-13.jpg")}
                                style={{ flex: 1, resizeMode:"cover" }}>
       <View>
       
@@ -54,7 +54,7 @@ const NotificacionesScreen = () => {
                 alignItems: "center",
                 gap: 10,
                 paddingHorizontal: 10,
-                borderColor: "#FF4081",
+                borderColor: "#6f6f5d",
                 borderWidth: 2,
                 paddingVertical: 10,
                 borderRadius: 30,
@@ -73,7 +73,7 @@ const NotificacionesScreen = () => {
                 borderWidth: 2,
                 paddingVertical: 10,
                 borderRadius: 30,
-                backgroundColor: "#00BCD4",
+                backgroundColor: "#6f6f5d",
                 marginTop: 10,
               }}
             >
@@ -82,7 +82,7 @@ const NotificacionesScreen = () => {
                   textAlign: "center",
                   fontSize: 15,
                   fontWeight: 500,
-                  color: "#34495E",
+                  color: "#f7f3f2",
                 }}
               >
                 Search
@@ -90,7 +90,7 @@ const NotificacionesScreen = () => {
             </Pressable>
           </View>
           <Text
-            style={{ marginHorizontal: 28, fontSize: 17, fontWeight: "500", color:"white" }}
+            style={{ marginHorizontal: 28, fontSize: 17, fontWeight: "500", color:"#272525" }}
           >
             Unidad 1
           </Text>
@@ -102,14 +102,15 @@ const NotificacionesScreen = () => {
                 width: 200,
                 height: 150,
                 marginTop: 10,
-                backgroundColor: "#34495E",
+                backgroundColor: "#f7f3f2",
                 borderRadius: 15,
                 padding:20,
-                marginHorizontal:8
+                marginHorizontal:8,
+                borderWidth:1,
               }}
             >
-              <Text style={{color:"white", fontSize:20, fontWeight:"bold", marginVertical:7}}>At the National Portrait Gallery</Text>
-              <Text style={{color:"white", fontSize:13, fontWeight:"500"}}>simple past of be: was/were</Text>
+              <Text style={{color:"#272525", fontSize:20, fontWeight:"bold", marginVertical:7}}>At the National Portrait Gallery</Text>
+              <Text style={{color:"#272525", fontSize:13, fontWeight:"500"}}>simple past of be: was/were</Text>
             </Pressable>
 
             <Pressable
@@ -118,14 +119,15 @@ const NotificacionesScreen = () => {
                 width: 200,
                 height: 150,
                 marginTop: 10,
-                backgroundColor: "#34495E",
+                backgroundColor: "#f7f3f2",
                 borderRadius: 15,
                 padding:20,
-                marginHorizontal:8
+                marginHorizontal:8,
+                borderWidth:1,
               }}
             >
-              <Text style={{color:"white", fontSize:20, fontWeight:"bold", marginVertical:7}}>Chelsea Girls</Text>
-              <Text style={{color:"white", fontSize:13, fontWeight:"500"}}>simple past: regular verbs</Text>
+              <Text style={{color:"#272525", fontSize:20, fontWeight:"bold", marginVertical:7}}>Chelsea Girls</Text>
+              <Text style={{color:"#272525", fontSize:13, fontWeight:"500"}}>simple past: regular verbs</Text>
             </Pressable>
 
             <Pressable
@@ -134,14 +136,15 @@ const NotificacionesScreen = () => {
                 width: 200,
                 height: 150,
                 marginTop: 10,
-                backgroundColor: "#34495E",
+                backgroundColor: "#f7f3f2",
                 borderRadius: 15,
                 padding:20,
-                marginHorizontal:8
+                marginHorizontal:8,
+                borderWidth:1,
               }}
             >
-              <Text style={{color:"white", fontSize:20, fontWeight:"bold", marginVertical:7}}>A night to remember</Text>
-              <Text style={{color:"white", fontSize:13, fontWeight:"500"}}>simple past: irregular verbs</Text>
+              <Text style={{color:"#272525", fontSize:20, fontWeight:"bold", marginVertical:7}}>A night to remember</Text>
+              <Text style={{color:"#272525", fontSize:13, fontWeight:"500"}}>simple past: irregular verbs</Text>
             </Pressable>
 
             <Pressable
@@ -149,21 +152,22 @@ const NotificacionesScreen = () => {
                 width: 200,
                 height: 150,
                 marginTop: 10,
-                backgroundColor: "#34495E",
+                backgroundColor: "#f7f3f2",
                 borderRadius: 15,
                 padding:20,
-                marginHorizontal:8
+                marginHorizontal:8,
+                borderWidth:1,
               }}
             >
-              <Text style={{color:"white", fontSize:20, fontWeight:"bold", marginVertical:7}}>Practical</Text>
-              <Text style={{color:"white", fontSize:13, fontWeight:"500"}}>Vocabulary</Text>
+              <Text style={{color:"#272525", fontSize:20, fontWeight:"bold", marginVertical:7}}>Practical</Text>
+              <Text style={{color:"#272525", fontSize:13, fontWeight:"500"}}>Vocabulary</Text>
             </Pressable>
           </ScrollView>
 
 
 
           <Text
-            style={{ marginHorizontal: 28, fontSize: 17, fontWeight: "500", marginTop:15, color:"white" }}
+            style={{ marginHorizontal: 28, fontSize: 17, fontWeight: "500", marginTop:15, color:"#492727" }}
           >
             Unidad 2
           </Text>
@@ -175,14 +179,15 @@ const NotificacionesScreen = () => {
                 width: 200,
                 height: 150,
                 marginTop: 10,
-                backgroundColor: "#34495E",
+                backgroundColor: "#f7f3f2",
                 borderRadius: 15,
                 padding:20,
-                marginHorizontal:8
+                marginHorizontal:8,
+                borderWidth:1,
               }}
             >
-              <Text style={{color:"white", fontSize:20, fontWeight:"bold", marginVertical:7}}>A murder story</Text>
-              <Text style={{color:"white", fontSize:13, fontWeight:"500"}}>simple past: regular and irregular verbs</Text>
+              <Text style={{color:"#272525", fontSize:20, fontWeight:"bold", marginVertical:7}}>A murder story</Text>
+              <Text style={{color:"#272525", fontSize:13, fontWeight:"500"}}>simple past: regular and irregular verbs</Text>
             </Pressable>
 
             <Pressable
@@ -191,14 +196,15 @@ const NotificacionesScreen = () => {
                 width: 200,
                 height: 150,
                 marginTop: 10,
-                backgroundColor: "#34495E",
+                backgroundColor: "#f7f3f2",
                 borderRadius: 15,
                 padding:20,
-                marginHorizontal:8
+                marginHorizontal:8,
+                borderWidth:1,
               }}
             >
-              <Text style={{color:"white", fontSize:20, fontWeight:"bold", marginVertical:7}}>A house with story</Text>
-              <Text style={{color:"white", fontSize:13, fontWeight:"500"}}>there is / there are, some / any + plural nouns</Text>
+              <Text style={{color:"#272525", fontSize:20, fontWeight:"bold", marginVertical:7}}>A house with story</Text>
+              <Text style={{color:"#272525", fontSize:13, fontWeight:"500"}}>there is / there are, some / any + plural nouns</Text>
             </Pressable>
 
 
@@ -208,14 +214,15 @@ const NotificacionesScreen = () => {
                 width: 200,
                 height: 150,
                 marginTop: 10,
-                backgroundColor: "#34495E",
+                backgroundColor: "#f7f3f2",
                 borderRadius: 15,
                 padding:20,
-                marginHorizontal:8
+                marginHorizontal:8,
+                borderWidth:1,
               }}
             >
-              <Text style={{color:"white", fontSize:20, fontWeight:"bold", marginVertical:7}}>A night in a haunted hotel</Text>
-              <Text style={{color:"white", fontSize:13, fontWeight:"500"}}>there was / there were</Text>
+              <Text style={{color:"#272525", fontSize:20, fontWeight:"bold", marginVertical:7}}>A night in a haunted hotel</Text>
+              <Text style={{color:"#272525", fontSize:13, fontWeight:"500"}}>there was / there were</Text>
             </Pressable>
             </ScrollView>
             <Pressable style={{paddingBottom:55}}>
