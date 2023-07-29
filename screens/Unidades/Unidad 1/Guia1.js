@@ -121,6 +121,7 @@ const Guia1 = () => {
       headerShown: true,
       title: 'Simple Past of Be: was/were',
       justifyContent: 'center',
+      fontFamily: 'Poppins',
       headerTitleStyle: {
         fontSize: 20,
         fontWeight: 'bold',
@@ -241,6 +242,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontSize: 16,
     fontWeight: 'bold',
+    fontFamily: 'Poppins',
   },
   optionButton: {
     flexDirection: 'row',

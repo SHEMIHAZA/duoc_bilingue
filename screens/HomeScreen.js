@@ -4,7 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import moment from 'moment';
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as Font from 'expo-font';
-import { ScrollView, StyleSheet, Text, View, TouchableOpacity, ImageBackground } from "react-native";
+import { ScrollView, StyleSheet, Text, View, TouchableOpacity, ImageBackground, Image } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const HomeScreen = () => {
@@ -65,6 +65,7 @@ const HomeScreen = () => {
       ),
     });
   }, []);
+
   if (!fontLoaded) {
     return null; // Mostrar una pantalla de carga o un componente de carga aquí
   }
@@ -81,7 +82,8 @@ const HomeScreen = () => {
           alignItems: "flex-start",
           justifyContent: "space-around"
         }}>
-          <Text style={{ color: '#6f6f5d', fontSize: 20, fontFamily: "Poppins", marginTop: 15 }}>Today: {currentDate}</Text>
+          <Text style={{ color: '#6f6f5d', fontSize: 20, fontFamily: "Poppins", marginTop: 15, textShadowColor: 'rgba(0, 0, 0, 0.3)',
+                           textShadowOffset: { width: 1, height: 1 }, textShadowRadius: 15 }}>Today: {currentDate}</Text>
         </View>
         <View style={{ alignItems: "center", marginTop: 10 }}>
           <Text style={{ color: "#6f6f5d", fontSize: 20, fontWeight: "bold", borderRadius:10, padding:5, marginTop:0 }}>
@@ -89,7 +91,7 @@ const HomeScreen = () => {
           </Text>
         </View>
 
-        <SafeAreaView>
+        <SafeAreaView style={{ flex: 1 }}>
           <ScrollView>
             <View style={{ flexDirection: "row" }}>
               <TouchableOpacity
@@ -102,10 +104,17 @@ const HomeScreen = () => {
                   padding: 20,
                   marginHorizontal: 8,
                   borderWidth:1,
+                  shadowColor: '#000',
+                  shadowOffset: { width: 1, height: 1 },
+                  shadowOpacity: 0.25,
+                  shadowRadius: 3.84,
+                  elevation: 5,
                 }}
                 onPress={() => navigation.navigate("Materia1")}
               >
-                <Text style={{ color: "#272525", fontSize: 20, fontWeight: "bold", marginVertical: 7, justifyContent: "space-around" }}>Access study material here</Text>
+                <Text style={{ color: "#272525", fontSize: 20, fontWeight: "bold", marginVertical: 7, justifyContent: "space-around", textShadowColor: 'rgba(0, 0, 0, 0.3)',
+                                textShadowOffset: { width: 1, height: 1 },
+                                textShadowRadius: 15, }}>Access study material here</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -118,9 +127,17 @@ const HomeScreen = () => {
                   padding: 20,
                   marginRight: 8,
                   borderWidth:1,
+                  shadowColor: '#000',
+                  shadowOffset: { width: 0, height: 2 },
+                  shadowOpacity: 0.25,
+                  shadowRadius: 3.84,
+                  elevation: 5,
                 }}
+                onPress={() => navigation.navigate("Progress")}
               >
-                <Text style={{ color: "#272525", fontSize: 20, fontWeight: "bold", marginVertical: 7, justifyContent: "space-around" }}>Analyze your progress</Text>
+                <Text style={{ color: "#272525", fontSize: 20, fontWeight: "bold", marginVertical: 7, justifyContent: "space-around",textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 15, }}>Analyze your progress</Text>
               </TouchableOpacity>
             </View>
 
@@ -135,9 +152,16 @@ const HomeScreen = () => {
                   padding: 20,
                   marginHorizontal: 8,
                   borderWidth:1,
+                  shadowColor: '#000',
+                  shadowOffset: { width: 0, height: 2 },
+                  shadowOpacity: 0.25,
+                  shadowRadius: 3.84,
+                  elevation: 5,
                 }}
               >
-                <Text style={{ color: "#272525", fontSize: 20, fontWeight: "bold", marginVertical: 7, justifyContent: "space-around" }}>More information</Text>
+                <Text style={{ color: "#272525", fontSize: 20, fontWeight: "bold", marginVertical: 7, justifyContent: "space-around", textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 15, }}>More information</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -150,13 +174,24 @@ const HomeScreen = () => {
                   padding: 20,
                   marginRight: 8,
                   borderWidth:1,
+                  shadowColor: '#000',
+                  shadowOffset: { width: 0, height: 2 },
+                  shadowOpacity: 0.25,
+                  shadowRadius: 3.84,
+                  elevation: 5,
                 }}
               >
-                <Text style={{ color: "#272525", fontSize: 20, fontWeight: "bold", marginVertical: 7, justifyContent: "space-around" }}>Access help pages</Text>
+                <Text style={{ color: "#272525", fontSize: 20, fontWeight: "bold", marginVertical: 7, justifyContent: "space-around", textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 15, }}>Access help pages</Text>
               </TouchableOpacity>
             </View>
           </ScrollView>
+          <View style={{ flex: 1, justifyContent: 'flex-end', alignItems: 'center', borderRadius: 40, backgroundColor: "#272525", marginBottom: 20, marginRight:50, marginLeft:50, opacity:0.88}}>
+            <Image source={require('./assets/images/logo-duoc.png')} style={{ width: 200, height: 44, marginBottom: 20, }} />
+          </View>
         </SafeAreaView>
+       
       </ImageBackground>
     </>
   );
@@ -165,4 +200,3 @@ const HomeScreen = () => {
 export default HomeScreen;
 
 const styles = StyleSheet.create({});
-

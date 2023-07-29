@@ -1,125 +1,113 @@
-import { View, Text, ScrollView, ImageBackground } from 'react-native'
-import React from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { useLayoutEffect } from 'react'
-import { useNavigation } from '@react-navigation/native'
+import { View, Text, ScrollView, ImageBackground, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useLayoutEffect } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
-import { LinearGradient } from 'expo-linear-gradient'
+import { WebView } from 'react-native-webview'; // Paso 1: Importar WebView
 
 const Materia1 = () => {
-    const navigation = useNavigation();
+  const navigation = useNavigation();
 
-    useLayoutEffect(() => {
-        navigation.setOptions({
-          headerShown: true,
-          title: "TIEMPOS VERBALES",
-          justifyContent: "center",
-          headerTitleStyle: {
-            fontSize: 20,
-            fontWeight: "bold",
-            color: "white",
-          },
-          headerStyle: {
-            backgroundColor: "#6f6f5d",
-            height: 110,
-            borderBottomColor: "transparent",
-            shadowColor: "transparent",
-          },
-          headerRight: () => (
-            <Ionicons
-              name="notifications-outline"
-              size={24}
-              color="white"
-              style={{ marginRight: 12 }}
-            />
-          ),
-        });
-      }, []);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: true,
+      title: "TIEMPOS VERBALES",
+      justifyContent: "center",
+      headerTitleStyle: {
+        fontSize: 20,
+        fontWeight: "bold",
+        color: "white",
+      },
+      headerStyle: {
+        backgroundColor: "#6f6f5d",
+        height: 110,
+        borderBottomColor: "transparent",
+        shadowColor: "transparent",
+      },
+      headerRight: () => (
+        <Ionicons
+          name="notifications-outline"
+          size={24}
+          color="white"
+          style={{ marginRight: 12 }}
+        />
+      ),
+    });
+  }, []);
 
   return (
     <>
-    <ImageBackground source={require("../assets/images/oatmeal-11.jpg")}
-                                    style={{ flex: 1, resizeMode:"cover"}}>
-    <SafeAreaView>
-    
-        <ScrollView>
-        
-            <View style={{marginLeft:10, marginRight:10, borderWidth:1, borderRadius:5, marginBottom: 25, opacity:0.9 }}>
-                <Text style={{fontSize:30, textAlign:"center", opacity:1, color:'#272525'}}>
-                    Presente Simple
-                </Text>
-                <Text style={{marginLeft:12, marginTop:10, fontWeight:"bold", fontSize:20, color:'#272525'}}>
-                    USO: 
-                </Text>
-                <Text style={{marginLeft:12, marginRight:12, marginTop:10, fontSize:20, color:'#272525'}}>
-                Cosas que ocurren siempre o habitualmente
-                </Text>
+      <ImageBackground source={require("../assets/images/oatmeal-11.jpg")} style={{ flex: 1, resizeMode: "cover" }}>
+        <SafeAreaView>
 
-                <Text style={{marginLeft:12, marginTop:20, fontWeight:"bold", fontSize:20, color:'#272525'}}>
-                    EJEMPLO:
-                </Text>
-                <Text style={{marginLeft:12, marginRight:12, marginTop:10, fontSize:20, marginBottom:20, borderWidth:1, borderRadius: 8, backgroundColor:"#6f6f5d", padding:12, color:'#f7f3f2'}}>
-                        1. I work in a museum.{'\n'}
-                        2. She doesn't play basketball.
-                </Text>
+          <ScrollView>
+            <View>
+              {/*  Titulo   */}
+              <Text style={{
+                textAlign: 'center', marginTop: 20, fontFamily: "Poppins", textShadowColor: 'rgba(0, 0, 0, 0.3)',
+                textShadowOffset: { width: 1, height: 1 }, textShadowRadius: 15, fontSize: 18, marginLeft: 10, marginRight: 10
+              }}>
+                You are going to watch a video about Sophie, a German vlogger, who describes her experience as an exchange student at a Japanese High School.
+              </Text>
+            </View>
+            {/* Video */}
+            <View style={{ marginLeft: 10, marginRight: 10, borderWidth: 1, borderRadius: 5, marginBottom: 25, opacity: 0.9, marginTop: 30 }}>
+
+              <WebView // Paso 3: Agregar el componente WebView con la URL del video que desees mostrar
+                style={{ height: 250 }}
+                source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/duoc-bilingue.appspot.com/o/1280x720%20Japanese%20High%20School%20Lif.mp4?alt=media&token=1c705da9-dec5-4cf8-b58e-fdc6ecefb230' }}
+                allowsFullscreenVideo={true}
+              />
+            </View>
+            <View>
+
+              <Text style={{
+                textAlign: 'center', marginTop: 20, fontFamily: "Poppins", textShadowColor: 'rgba(0, 0, 0, 0.3)',
+                textShadowOffset: { width: 1, height: 1 }, textShadowRadius: 15, fontSize: 18, marginLeft: 10, marginRight: 10,
+                borderWidth: 1, borderRadius: 10, backgroundColor: "#5f6f5d", borderColor: 'transparent', padding: 10, color: "#f7f3f2"
+              }}>
+                Mark "True" or "False" while watching the video.
+              </Text>
             </View>
 
-{/* --------------------------------------------------------------------------------------------------------------------------- */}
-
-            <View style={{marginLeft:10, marginRight:10, borderWidth:1, borderRadius:5, marginBottom: 25, opacity:0.9}}>
-                <Text style={{fontSize:30, textAlign:"center"}}>
-                    Presente Continuo
-                </Text>
-                <Text style={{marginLeft:12, marginTop:10, fontWeight:"bold", fontSize:20, color:'#272525'}}>
-                    USO: 
-                </Text>
-                <Text style={{marginLeft:12, marginRight:12, marginTop:10, fontSize:20, color:'#272525'}}>
-                    Cosas que estan ocurriendo ahora o cerca en el tiempo.
-                </Text>
-                <Text style={{marginLeft:12, marginRight:12, marginTop:10, fontSize:20, color:'#272525'}}>
-                    Arreglos para el futuro cercano.
-                </Text>
-
-                <Text style={{marginLeft:12, marginTop:20, fontWeight:"bold", fontSize:20, color:'#272525'}}>
-                    EJEMPLO:
-                </Text>
-                <Text style={{marginLeft:12, marginRight:12, marginTop:10, fontSize:20, marginBottom:1, borderWidth:1, borderRadius: 8, backgroundColor:"#6f6f5d", padding:12, color:'#f7f3f2'}}>
-                        1. She's wearing a red dress.{'\n'}
-                </Text>
-                <Text style={{marginLeft:12, marginRight:12, marginTop:10, fontSize:20, marginBottom:20, borderWidth:1, borderRadius: 8, backgroundColor:"#6f6f5d", padding:12, color:'#f7f3f2'}}>
-                        1. I'm arriving on monday.
-                </Text>
+            <View>
+              {/* Cuestionario */}
+              <Text style={styles.title}>1. Sophie went on a high school exchange to Japan for 6 months.</Text>
             </View>
-
-{/* --------------------------------------------------------------------------------------------------------------------------- */}
-
-            <View style={{marginLeft:10, marginRight:10, borderWidth:1, borderRadius:5, marginBottom: 25, opacity:0.9 }}>
-                <Text style={{fontSize:30, textAlign:"center"}}>
-                    Pasado Simple
-                </Text>
-                <Text style={{marginLeft:12, marginTop:10, fontWeight:"bold", fontSize:20, color:'#272525'}}>
-                    USO: 
-                </Text>
-                <Text style={{marginLeft:12, marginTop:10, fontSize:20, color:'#272525'}}>
-                    Acciones finalizadas en el pasado
-                </Text>
-
-                <Text style={{marginLeft:12, marginTop:10, fontWeight:"bold", fontSize:20, color:'#272525'}}>
-                    EJEMPLO:
-                </Text>
-                <Text style={{marginLeft:12, marginRight:12, marginTop:10, fontSize:20, marginBottom:20, borderWidth:1, borderRadius: 5, backgroundColor:"#6f6f5d", padding:12, color:'#f7f3f2'}}>
-                        1. We played videogames last night.{'\n'}
-                        2. They didn't go to classes.
-                </Text>
+            <View>
+              {/* Cuestionario */}
+              <Text style={styles.title}>2. When you enter any public building in Japan, you must take off your shoes.</Text>
             </View>
-
-        </ScrollView>
-        
-    </SafeAreaView>
-    </ImageBackground>
-    
+            <View>
+              {/* Cuestionario */}
+              <Text style={styles.title}>3. Sophie didn't wear a school uniform in German.</Text>
+            </View>
+            <View>
+              {/* Cuestionario */}
+              <Text style={styles.title}>4. Sophie thinks Japanese homemade food is better than German food.</Text>
+            </View>
+            <View>
+              {/* Cuestionario */}
+              <Text style={styles.title}>5. Sophie didn't learn Japanese.</Text>
+            </View>
+            <View>
+              {/* Cuestionario */}
+              <Text style={styles.title}>6. It was easy for Sophie to adapt to Japanese culture.</Text>
+            </View>
+          </ScrollView>
+        </SafeAreaView>
+      </ImageBackground>
     </>
   )
 }
 
-export default Materia1
+export default Materia1;
+
+const styles = StyleSheet.create({
+  title: {
+    marginTop: 20, fontFamily: "Poppins", textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 1, height: 1 }, textShadowRadius: 15, fontSize: 15, marginLeft: 15, marginRight: 10
+  }
+});

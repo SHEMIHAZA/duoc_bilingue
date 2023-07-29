@@ -9,7 +9,7 @@ import SavedScreen from "./screens/SavedScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import { Ionicons } from "@expo/vector-icons";
 import { NavigationContainer } from '@react-navigation/native';
-import SearchScreen from "./screens/SearchScreen";
+import Progress from "./screens/Progress";
 import Guia1 from "./screens/Unidades/Unidad 1/Guia1"
 import Guia2 from "./screens/Unidades/Unidad 1/Guia2";
 import Guia3 from "./screens/Unidades/Unidad 1/Guia3";
@@ -19,6 +19,9 @@ import Guia6 from "./screens/Unidades/Unidad 2/Guia6";
 import Guia7 from "./screens/Unidades/Unidad 3/Guia7";
 import Guia8 from "./screens/Unidades/Unidad 3/Guia8";
 import Materia1 from "./screens/Materia/Materia1";
+import Materia2 from "./screens/Materia/Materia2";
+import Materia3 from "./screens/Materia/Materia3";
+import Materia4 from "./screens/Materia/Materia4";
 
 
 const StackNavigator = () => {
@@ -102,7 +105,7 @@ const StackNavigator = () => {
         }}
       >
         <Stack.Screen name="Main" component={BottomTabs} />
-        <Stack.Screen name="Search" component={SearchScreen} />
+        <Stack.Screen name="Progress" component={Progress} />
         <Stack.Screen name="Guia1" component={Guia1} />
         <Stack.Screen name="Guia2" component={Guia2} />
         <Stack.Screen name="Guia3" component={Guia3} />
@@ -112,6 +115,9 @@ const StackNavigator = () => {
         <Stack.Screen name="Guia7" component={Guia7} />
         <Stack.Screen name="Guia8" component={Guia8} />
         <Stack.Screen name="Materia1" component={Materia1} />
+        <Stack.Screen name="Materia2" component={Materia2} />
+        <Stack.Screen name="Materia3" component={Materia3} />
+        <Stack.Screen name="Materia4" component={Materia4} />
       </Stack.Navigator>
     </NavigationContainer>
   );

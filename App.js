@@ -2,13 +2,17 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import StackNavigator from './StackNavigator';
 import { ModalPortal } from 'react-native-modals';
+// import 'react-native-svg';
+
 
 
 export default function App() {
   return (
     <>
+    
       <StackNavigator/>
       <ModalPortal/>
+
     </>
   );
 }
@@ -16,7 +20,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#272525',
+      backgroundColor: '#272525',
     alignItems: 'center',
     justifyContent: 'center',
   },
